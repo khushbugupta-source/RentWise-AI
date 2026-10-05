@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | RentWise AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='login.css') }}">
+
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-left">
+
+        <a href="/" class="back-home">
+            ← Back to RentWise AI
+        </a>
+
+        <div class="auth-content">
+
+            <div class="logo">
+                RentWise <span>AI</span>
+            </div>
+
+            <h1>
+                Welcome back.
+            </h1>
+
+            <p>
+                Sign in to continue analyzing
+                your rental agreements.
+            </p>
+
+            <form method="POST">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <button type="submit">
+                    Sign In →
+                </button>
+
+            </form>
+
+            <p class="switch">
+                Don't have an account?
+                <a href="/signup">
+                    Create one
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="auth-right">
+
+        <div class="auth-card">
+
+            <div class="mini-logo">
+                ✦
+            </div>
+
+            <h2>
+                Your agreement.
+                <br>
+                Your understanding.
+            </h2>
+
+            <p>
+                Let AI help you understand complicated
+                rental clauses before making important
+                decisions.
+            </p>
+
+            <div class="mini-stat">
+
+                <strong>
+                    AI
+                </strong>
+
+                <span>
+                    Document Analysis
+                </span>
+
+            </div>
+
+            <div class="mini-stat">
+
+                <strong>
+                    RAG
+                </strong>
+
+                <span>
+                    Context Retrieval
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

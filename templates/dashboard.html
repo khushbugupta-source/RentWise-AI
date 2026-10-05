@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | RentWise AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='dashboard.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            RentWise <span>AI</span>
+        </div>
+
+
+        <div class="menu-title">
+            MAIN MENU
+        </div>
+
+
+        <a href="{{ url_for('dashboard') }}"
+           class="menu active">
+
+            <span>⌂</span>
+
+            Dashboard
+
+        </a>
+
+
+        <a href="#analyze"
+           class="menu">
+
+            <span>📄</span>
+
+            Analyze Agreement
+
+        </a>
+
+
+        <a href="{{ url_for('history') }}"
+           class="menu">
+
+            <span>◷</span>
+
+            History
+
+        </a>
+
+
+        <div class="menu-title second">
+            ACCOUNT
+        </div>
+
+
+        <a href="{{ url_for('profile') }}"
+           class="menu">
+
+            <span>◯</span>
+
+            Profile
+
+        </a>
+
+
+        <a href="{{ url_for('logout') }}"
+           class="menu logout">
+
+            <span>↪</span>
+
+            Logout
+
+        </a>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="welcome">
+                    Welcome back 👋
+                </p>
+
+                <h1>
+                    Your Dashboard
+                </h1>
+
+            </div>
+
+
+            <div class="user">
+
+                <div class="avatar"
+                     id="userAvatar">
+
+                    {{ user[0]|upper }}
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        {{ user }}
+                    </strong>
+
+                    <small>
+                        User
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="stats">
+
+
+            <!-- AGREEMENTS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    📄
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Agreements
+                    </span>
+
+
+                    <strong id="agreementsCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RISKS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    ⚠
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Risks Found
+                    </span>
+
+
+                    <strong id="risksCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DOCUMENTS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Documents Analyzed
+                    </span>
+
+
+                    <strong id="documentsCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ANALYZE AGREEMENT
+        ================================================== -->
+
+        <section id="analyze"
+                 class="analysis-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span>
+                        DOCUMENT ANALYSIS
+                    </span>
+
+
+                    <h2>
+                        Analyze Rental Agreement
+                    </h2>
+
+                </div>
+
+
+                <div class="ai-status">
+                    ● AI Engine Ready
+                </div>
+
+
+            </div>
+
+
+
+            <!-- UPLOAD BOX -->
+
+            <div class="upload-box">
+
+
+                <div class="upload-symbol">
+                    ↑
+                </div>
+
+
+                <h3>
+                    Upload your agreement
+                </h3>
+
+
+                <p>
+                    Drag and drop your PDF here
+                    or select a file from your computer.
+                </p>
+
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".pdf"
+                >
+
+
+                <button
+                    id="analyzeButton"
+                    onclick="uploadFile()">
+
+                    Analyze Agreement →
+
+                </button>
+
+
+                <div id="status"></div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESULT
+            ================================================== -->
+
+            <div id="result"
+                 class="result"
+                 style="display:none;">
+
+
+                <div class="result-header">
+
+
+                    <div>
+
+                        <span>
+                            ANALYSIS RESULT
+                        </span>
+
+
+                        <h2>
+                            Document Successfully Processed
+                        </h2>
+
+                    </div>
+
+
+                    <div class="processed">
+                        ✓ Processed
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FILE INFORMATION -->
+
+                <div class="result-info"
+                     id="fileInfo">
+                </div>
+
+
+
+                <!-- RISK SECTION -->
+
+                <div id="riskSection"
+                     style="display:none; margin-top:25px;">
+
+
+                    <h3>
+                        ⚠ Potential Risk Areas
+                    </h3>
+
+
+                    <div id="riskContainer">
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- EXTRACTED TEXT -->
+
+                <div class="preview">
+
+
+                    <h3>
+                        Extracted Agreement Text
+                    </h3>
+
+
+                    <pre id="textPreview">
+                    </pre>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT ACTIVITY
+        ================================================== -->
+
+        <section id="recentActivity"
+                 class="history">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span>
+                        RECENT ACTIVITY
+                    </span>
+
+
+                    <h2>
+                        Latest Agreement
+                    </h2>
+
+                </div>
+
+
+                <a href="{{ url_for('history') }}"
+                   style="
+                   color:#635bff;
+                   text-decoration:none;
+                   font-weight:600;
+                   ">
+
+                    View All →
+
+                </a>
+
+            </div>
+
+
+            <div id="recentAgreement">
+
+                <div class="empty-history">
+
+                    <div>
+                        📂
+                    </div>
+
+
+                    <h3>
+                        No agreements analyzed yet
+                    </h3>
+
+
+                    <p>
+                        Upload your first rental agreement
+                        to see it here.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script>
+
+
+/* =========================================================
+   LOAD DASHBOARD STATISTICS
+========================================================= */
+
+async function loadDashboardStats() {
+
+    try {
+
+        const response =
+            await fetch("/api/stats");
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            console.error(
+                data.message
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "agreementsCount"
+        ).innerText =
+            data.agreements;
+
+
+        document.getElementById(
+            "risksCount"
+        ).innerText =
+            data.risks;
+
+
+        document.getElementById(
+            "documentsCount"
+        ).innerText =
+            data.documents;
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unable to load statistics:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   UPLOAD AND ANALYZE AGREEMENT
+========================================================= */
+
+async function uploadFile() {
+
+
+    const input =
+        document.getElementById(
+            "fileInput"
+        );
+
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    const fileInfo =
+        document.getElementById(
+            "fileInfo"
+        );
+
+
+    const textPreview =
+        document.getElementById(
+            "textPreview"
+        );
+
+
+    const button =
+        document.getElementById(
+            "analyzeButton"
+        );
+
+
+
+    /* -----------------------------------------------------
+       CHECK FILE
+    ----------------------------------------------------- */
+
+    if (!input.files.length) {
+
+        status.innerText =
+            "⚠ Please select a PDF file first.";
+
+        return;
+
+    }
+
+
+
+    const file =
+        input.files[0];
+
+
+
+    /* -----------------------------------------------------
+       CHECK PDF
+    ----------------------------------------------------- */
+
+    if (
+        !file.name
+            .toLowerCase()
+            .endsWith(".pdf")
+    ) {
+
+        status.innerText =
+            "⚠ Only PDF files are supported.";
+
+        return;
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       FORM DATA
+    ----------------------------------------------------- */
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        file
+    );
+
+
+
+    /* -----------------------------------------------------
+       LOADING STATE
+    ----------------------------------------------------- */
+
+    status.innerText =
+        "⏳ Analyzing agreement...";
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "Analyzing...";
+
+
+
+    try {
+
+
+        /* -------------------------------------------------
+           SEND TO FLASK
+        ------------------------------------------------- */
+
+        const response =
+            await fetch(
+                "/upload",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+
+        /* -------------------------------------------------
+           ERROR
+        ------------------------------------------------- */
+
+        if (!data.success) {
+
+            status.innerText =
+                "⚠ " +
+                data.message;
+
+            return;
+
+        }
+
+
+
+        /* -------------------------------------------------
+           SUCCESS
+        ------------------------------------------------- */
+
+        status.innerText =
+            "✓ Agreement analyzed successfully";
+
+
+        result.style.display =
+            "block";
+
+
+
+        /* -------------------------------------------------
+           FILE INFORMATION
+        ------------------------------------------------- */
+
+        fileInfo.innerHTML = `
+
+            <div>
+
+                <span>
+                    FILE
+                </span>
+
+                <strong>
+                    ${escapeHtml(data.filename)}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    PAGES
+                </span>
+
+                <strong>
+                    ${data.pages}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    POTENTIAL RISKS
+                </span>
+
+                <strong>
+                    ${data.risk_count}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    STATUS
+                </span>
+
+                <strong>
+                    Analysis Complete
+                </strong>
+
+            </div>
+
+        `;
+
+
+
+        /* -------------------------------------------------
+           EXTRACTED TEXT
+        ------------------------------------------------- */
+
+        textPreview.innerText =
+            data.text_preview ||
+            "No readable text was extracted from this PDF.";
+
+
+
+        /* -------------------------------------------------
+           DISPLAY RISKS
+        ------------------------------------------------- */
+
+        displayRisks(
+            data.risks || []
+        );
+
+
+
+        /* -------------------------------------------------
+           UPDATE COUNTERS
+        ------------------------------------------------- */
+
+        await loadDashboardStats();
+
+
+
+        /* -------------------------------------------------
+           SCROLL TO RESULT
+        ------------------------------------------------- */
+
+        result.scrollIntoView({
+            behavior: "smooth"
+        });
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        status.innerText =
+            "⚠ Something went wrong while analyzing the agreement.";
+
+    }
+
+
+    finally {
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "Analyze Agreement →";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DISPLAY RISKS
+========================================================= */
+
+function displayRisks(risks) {
+
+
+    const riskSection =
+        document.getElementById(
+            "riskSection"
+        );
+
+
+    const riskContainer =
+        document.getElementById(
+            "riskContainer"
+        );
+
+
+
+    if (!risks || risks.length === 0) {
+
+        riskSection.style.display =
+            "block";
+
+
+        riskContainer.innerHTML = `
+
+            <div style="
+                background:#eefbf3;
+                border:1px solid #c9efd9;
+                padding:18px;
+                border-radius:12px;
+                margin-top:12px;
+            ">
+
+                <strong>
+                    ✓ No potential risk areas detected
+                </strong>
+
+                <p style="margin-bottom:0;">
+                    The system did not detect any of the
+                    configured risk categories in this agreement.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    riskSection.style.display =
+        "block";
+
+
+    riskContainer.innerHTML =
+        "";
+
+
+
+    risks.forEach(
+        function(risk) {
+
+
+            let severityClass =
+                "";
+
+
+            if (
+                risk.severity
+                    .toLowerCase()
+                    === "high"
+            ) {
+
+                severityClass =
+                    "background:#fff0f0;border-left:4px solid #e53935;";
+
+            }
+
+            else if (
+                risk.severity
+                    .toLowerCase()
+                    === "medium"
+            ) {
+
+                severityClass =
+                    "background:#fff8ed;border-left:4px solid #f59e0b;";
+
+            }
+
+            else {
+
+                severityClass =
+                    "background:#f5f7ff;border-left:4px solid #635bff;";
+
+            }
+
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.style.cssText = `
+                ${severityClass}
+                padding:18px;
+                border-radius:10px;
+                margin-top:12px;
+            `;
+
+
+            card.innerHTML = `
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:15px;
+                ">
+
+                    <strong>
+                        ${escapeHtml(risk.category)}
+                    </strong>
+
+
+                    <span style="
+                        font-weight:600;
+                        font-size:13px;
+                    ">
+
+                        ${escapeHtml(risk.severity)}
+
+                    </span>
+
+                </div>
+
+
+                <p style="
+                    margin:10px 0;
+                    color:#555;
+                ">
+
+                    ${escapeHtml(risk.explanation)}
+
+                </p>
+
+
+                <div style="
+                    background:white;
+                    padding:10px;
+                    border-radius:7px;
+                    font-size:13px;
+                    color:#666;
+                ">
+
+                    <strong>
+                        Detected clause:
+                    </strong>
+
+                    ${escapeHtml(risk.clause)}
+
+                </div>
+
+            `;
+
+
+            riskContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+    if (value === null ||
+        value === undefined) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =========================================================
+   LOAD DASHBOARD WHEN PAGE OPENS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadDashboardStats();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

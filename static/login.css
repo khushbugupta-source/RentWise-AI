@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+}
+
+.auth-left {
+    width: 55%;
+    padding: 35px 9%;
+    position: relative;
+}
+
+.back-home {
+    text-decoration: none;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.auth-content {
+    max-width: 430px;
+    margin: 90px auto;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 45px;
+}
+
+.logo span {
+    color: #635bff;
+}
+
+.auth-content h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.auth-content > p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+form label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 18px 0 8px;
+}
+
+form input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+
+form input:focus {
+    border-color: #635bff;
+}
+
+form button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #635bff;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.switch {
+    text-align: center;
+    margin-top: 25px !important;
+}
+
+.switch a {
+    color: #635bff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.error {
+    margin-top: 15px;
+    padding: 10px;
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.auth-right {
+    width: 45%;
+    background: linear-gradient(145deg, #635bff, #4338ca);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.auth-card {
+    max-width: 430px;
+    color: white;
+}
+
+.mini-logo {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.auth-card h2 {
+    font-size: 42px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.auth-card > p {
+    color: #e0e7ff;
+    line-height: 1.7;
+}
+
+.mini-stat {
+    margin-top: 25px;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 10px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.mini-stat strong {
+    font-size: 13px;
+}
+
+.mini-stat span {
+    font-size: 13px;
+    color: #e0e7ff;
+}
+
+@media(max-width:800px) {
+
+    .auth-left {
+        width: 100%;
+    }
+
+    .auth-right {
+        display: none;
+    }
+
+}

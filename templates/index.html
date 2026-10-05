@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RentWise AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        RentWise <span>AI</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="#features">
+            Features
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="/login"
+           class="login-nav">
+            Login
+        </a>
+
+        <a href="/signup"
+           class="signup-nav">
+            Get Started
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <div class="badge">
+            ✦ AI-POWERED RENTAL ANALYSIS
+        </div>
+
+        <h1>
+            Understand Your
+            <span>Rental Agreement</span>
+            Before You Sign.
+        </h1>
+
+        <p>
+
+            RentWise AI uses Artificial Intelligence,
+            RAG and Large Language Models to simplify
+            complicated rental agreements and identify
+            potentially risky clauses.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/signup"
+               class="primary-btn">
+                Analyze Agreement →
+            </a>
+
+            <a href="#features"
+               class="secondary-btn">
+                Explore Features
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-right">
+
+        <div class="ai-card">
+
+            <div class="card-top">
+
+                <span>
+                    AI ANALYSIS
+                </span>
+
+                <span class="status">
+                    ● Ready
+                </span>
+
+            </div>
+
+            <h3>
+                Rental Agreement.pdf
+            </h3>
+
+            <div class="risk-row">
+
+                <div class="risk-icon">
+                    ⚠
+                </div>
+
+                <div>
+
+                    <strong>
+                        3 Potential Risks
+                    </strong>
+
+                    <p>
+                        Found in agreement
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="risk-item">
+                <span>Early Termination</span>
+                <b>High</b>
+            </div>
+
+            <div class="risk-item">
+                <span>Notice Period</span>
+                <b>Medium</b>
+            </div>
+
+            <div class="risk-item">
+                <span>Security Deposit</span>
+                <b>Medium</b>
+            </div>
+
+            <div class="safe">
+                ✓ Agreement analyzed successfully
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features"
+         class="features">
+
+    <div class="section-title">
+
+        <span>
+            POWERFUL FEATURES
+        </span>
+
+        <h2>
+            Your Agreement,
+            <br>
+            Explained by AI.
+        </h2>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📄
+            </div>
+
+            <h3>
+                Smart Document Analysis
+            </h3>
+
+            <p>
+                Upload your rental agreement
+                and let AI analyze the document.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Risk Identification
+            </h3>
+
+            <p>
+                Identify clauses that may require
+                additional attention before signing.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Explanation
+            </h3>
+
+            <p>
+                Understand complicated legal
+                language in simple terms.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💬
+            </div>
+
+            <h3>
+                Ask Your Agreement
+            </h3>
+
+            <p>
+                Ask questions about your agreement
+                and receive context-based answers.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="how">
+
+    <div class="section-title">
+
+        <span>
+            HOW IT WORKS
+        </span>
+
+        <h2>
+            Three Simple Steps
+        </h2>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="number">
+                01
+            </div>
+
+            <h3>
+                Upload
+            </h3>
+
+            <p>
+                Upload your rental agreement
+                in PDF format.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">
+                02
+            </div>
+
+            <h3>
+                Analyze
+            </h3>
+
+            <p>
+                RAG retrieves relevant clauses
+                for AI analysis.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">
+                03
+            </div>
+
+            <h3>
+                Understand
+            </h3>
+
+            <p>
+                Get simple explanations and
+                potential risk indicators.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about"
+         class="about">
+
+    <div>
+
+        <span>
+            ABOUT RENTWISE AI
+        </span>
+
+        <h2>
+            Making Legal Documents
+            Easier to Understand.
+        </h2>
+
+        <p>
+
+            Rental agreements can contain complex
+            terminology and conditions that are difficult
+            for ordinary users to understand.
+
+            RentWise AI combines document retrieval,
+            embeddings and Large Language Models to
+            provide a more accessible way to understand
+            rental agreements.
+
+        </p>
+
+        <a href="/signup"
+           class="primary-btn">
+            Try RentWise AI →
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="logo">
+        RentWise <span>AI</span>
+    </div>
+
+    <p>
+        AI Rental Agreement Understanding & Risk Identification
+    </p>
+
+    <p class="copyright">
+        © 2026 RentWise AI
+    </p>
+
+</footer>
+
+
+</body>
+</html>

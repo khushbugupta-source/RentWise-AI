@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>History | RentWise AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='dashboard.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            RentWise <span>AI</span>
+        </div>
+
+
+        <div class="menu-title">
+            MAIN MENU
+        </div>
+
+
+        <a href="{{ url_for('dashboard') }}"
+           class="menu">
+
+            <span>⌂</span>
+
+            Dashboard
+
+        </a>
+
+
+        <a href="{{ url_for('dashboard') }}#analyze"
+           class="menu">
+
+            <span>📄</span>
+
+            Analyze Agreement
+
+        </a>
+
+
+        <a href="{{ url_for('history') }}"
+           class="menu active">
+
+            <span>◷</span>
+
+            History
+
+        </a>
+
+
+        <div class="menu-title second">
+            ACCOUNT
+        </div>
+
+
+        <a href="{{ url_for('profile') }}"
+           class="menu">
+
+            <span>◯</span>
+
+            Profile
+
+        </a>
+
+
+        <a href="{{ url_for('logout') }}"
+           class="menu logout">
+
+            <span>↪</span>
+
+            Logout
+
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="welcome">
+                    Your activity
+                </p>
+
+                <h1>
+                    Agreement History
+                </h1>
+
+            </div>
+
+
+            <div class="user">
+
+                <div class="avatar">
+
+                    {{ user[0]|upper }}
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        {{ user }}
+                    </strong>
+
+                    <small>
+                        User
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <section style="padding:30px;">
+
+
+            {% if agreements %}
+
+
+                {% for agreement in agreements %}
+
+
+                <div style="
+                    background:white;
+                    padding:25px;
+                    margin-bottom:18px;
+                    border-radius:16px;
+                    border:1px solid #eeeeee;
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:20px;
+                ">
+
+
+                    <div>
+
+                        <h3 style="margin-top:0;">
+
+                            📄
+                            {{ agreement.filename }}
+
+                        </h3>
+
+
+                        <p style="color:#777;">
+
+                            Analyzed:
+                            {{ agreement.uploaded_at }}
+
+                        </p>
+
+
+                        <p>
+
+                            Pages:
+                            <strong>
+                                {{ agreement.pages }}
+                            </strong>
+
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+
+                            Potential Risks:
+                            <strong>
+                                {{ agreement.risk_count }}
+                            </strong>
+
+                        </p>
+
+
+                    </div>
+
+
+                    <button
+                        onclick="viewAgreement('{{ agreement.id }}')"
+                        style="
+                        background:#635bff;
+                        color:white;
+                        border:none;
+                        padding:12px 20px;
+                        border-radius:8px;
+                        cursor:pointer;
+                        ">
+
+                        View Analysis
+
+                    </button>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div style="
+                    background:white;
+                    padding:70px 30px;
+                    border-radius:18px;
+                    text-align:center;
+                ">
+
+                    <div style="font-size:45px;">
+                        📂
+                    </div>
+
+
+                    <h2>
+                        No agreements analyzed yet
+                    </h2>
+
+
+                    <p style="color:#777;">
+                        Upload a rental agreement from
+                        your dashboard to create your first
+                        analysis.
+                    </p>
+
+
+                    <a
+                        href="{{ url_for('dashboard') }}#analyze"
+                        style="
+                        display:inline-block;
+                        margin-top:15px;
+                        background:#635bff;
+                        color:white;
+                        padding:12px 20px;
+                        border-radius:8px;
+                        text-decoration:none;
+                        ">
+
+                        Analyze Agreement
+
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+async function viewAgreement(id) {
+
+    const response =
+        await fetch(
+            "/api/agreement/" + id
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (!data.success) {
+
+        alert(data.message);
+
+        return;
+
+    }
+
+
+    const agreement =
+        data.agreement;
+
+
+    let message =
+        "RENTWISE AI ANALYSIS\n\n";
+
+
+    message +=
+        "File: " +
+        agreement.filename +
+        "\n";
+
+
+    message +=
+        "Pages: " +
+        agreement.pages +
+        "\n";
+
+
+    message +=
+        "Potential Risks: " +
+        agreement.risk_count +
+        "\n\n";
+
+
+    if (agreement.risks.length === 0) {
+
+        message +=
+            "No configured potential risk areas detected.";
+
+    }
+
+    else {
+
+        agreement.risks.forEach(
+            function(risk, index) {
+
+                message +=
+                    (index + 1) +
+                    ". " +
+                    risk.category +
+                    " [" +
+                    risk.severity +
+                    "]\n";
+
+                message +=
+                    risk.explanation +
+                    "\n\n";
+
+            }
+        );
+
+    }
+
+
+    alert(message);
+
+}
+
+</script>
+
+
+</body>
+
+</html>

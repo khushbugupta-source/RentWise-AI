@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | RentWise AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='login.css') }}">
+
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-left">
+
+        <a href="/" class="back-home">
+            ← Back to RentWise AI
+        </a>
+
+        <div class="auth-content">
+
+            <div class="logo">
+                RentWise <span>AI</span>
+            </div>
+
+            <h1>
+                Create your account.
+            </h1>
+
+            <p>
+                Start understanding your rental
+                agreements with AI.
+            </p>
+
+            <form method="POST">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                >
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+                {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <button type="submit">
+                    Create Account →
+                </button>
+
+            </form>
+
+            <p class="switch">
+                Already have an account?
+                <a href="/login">
+                    Sign in
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="auth-right">
+
+        <div class="auth-card">
+
+            <div class="mini-logo">
+                ✦
+            </div>
+
+            <h2>
+                Analyze before
+                <br>
+                you sign.
+            </h2>
+
+            <p>
+                Upload an agreement, understand its
+                clauses and identify areas that deserve
+                your attention.
+            </p>
+
+            <div class="mini-stat">
+
+                <strong>
+                    PDF
+                </strong>
+
+                <span>
+                    Upload Agreement
+                </span>
+
+            </div>
+
+            <div class="mini-stat">
+
+                <strong>
+                    AI
+                </strong>
+
+                <span>
+                    Explain & Analyze
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
