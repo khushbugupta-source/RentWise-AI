@@ -1,2 +1,2 @@
 # RentWise-AI
-AI-powered rental agreement analyzer using RAG and LLMs to simplify complex clauses, identify potential risks, and help users understand their rental agreements.
+RentWise AI is an AI-powered rental agreement understanding and risk identification system that uses Retrieval-Augmented Generation (RAG), Large Language Models (LLMs), semantic search, and document processing to analyze rental agreements. It extracts important clauses, explains complex terms in simple language, identifies potential areas of concern, and allows users to interact with their uploaded agreements.
